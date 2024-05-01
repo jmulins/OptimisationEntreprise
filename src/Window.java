@@ -1,3 +1,7 @@
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -5,15 +9,24 @@ import java.util.ArrayList;
 public class Window extends JFrame{
     public ArrayList<JLabel> labels = new ArrayList<JLabel>();
     public ArrayList<JTextField> fields = new ArrayList<JTextField>();
-    public Window(){
-        this.InitFrame();
-        this.InitComponent();
 
+    final XYChart chart = new XYChartBuilder().width(1280).height(720).title("Area Chart").xAxisTitle("X").yAxisTitle("Y").build();
+
+
+
+
+    public Window(){
+        chart.addSeries("normal", Utils.generateXForList(Main.listePlastique), Main.listePlastique);
+        chart.addSeries("momentum", Utils.generateXForList(Main.momentumList), Main.momentumList);
+        this.InitFrame();
+        JPanel chartPanel = new XChartPanel<XYChart>(chart);
+        this.add(chartPanel, BorderLayout.CENTER);
+       // this.InitComponent();
     }
     public void InitFrame(){
         this.setTitle("Progiciel");
         this.setSize(1280,720);
-        this.setLayout(new GridLayout(5,2));
+        //this.setLayout(new GridLayout(5,2));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(new Color(0,0,0));
@@ -25,7 +38,7 @@ public class Window extends JFrame{
             JLabel label = new JLabel(categorie);
             label.setVerticalTextPosition(JLabel.CENTER);
             label.setHorizontalTextPosition(JLabel.CENTER);
-            label.set
+            //label.set
             label.setBackground(new Color(255,0,0));
             label.setForeground(new Color(255,255,255));
             label.setOpaque(true);

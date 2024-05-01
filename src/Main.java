@@ -9,6 +9,7 @@ public class Main {
     public static final String[] MP_LABELS = new String[]{"porc", "poulet", "canard", "plastique","fer"};
     static List<Float> listePlastique = new ArrayList<Float>();
     static List<Float> momentumList;
+    static List<Float> tciList;
 
     public static void main(String[] args) {
         listePlastique.add(4.2f);
@@ -28,6 +29,7 @@ public class Main {
         listePlastique.add(5.427f);
 
         momentumList = Utils.calculateMomentum(listePlastique, 1);
+        tciList = Utils.calculateTCI(listePlastique, 2, 4);
 
         Window window = new Window();
 

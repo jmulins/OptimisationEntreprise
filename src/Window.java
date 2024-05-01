@@ -18,6 +18,8 @@ public class Window extends JFrame{
     public Window(){
         chart.addSeries("normal", Utils.generateXForList(Main.listePlastique), Main.listePlastique);
         chart.addSeries("momentum", Utils.generateXForList(Main.momentumList), Main.momentumList);
+        chart.addSeries("TCI", Utils.generateXForList(Main.tciList), Main.tciList);
+
         this.InitFrame();
         JPanel chartPanel = new XChartPanel<XYChart>(chart);
         this.add(chartPanel, BorderLayout.CENTER);

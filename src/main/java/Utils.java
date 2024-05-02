@@ -34,7 +34,7 @@ public class Utils {
 
         for (int i = n; i <= listWithoutFirstValues.size(); i++){
 
-            momentumList.add(100 * (precedentValues.get(i) / precedentValues.get(i - 1)));
+            momentumList.add(1 * (precedentValues.get(i) / precedentValues.get(i - 1)));
 
         }
 
@@ -73,7 +73,7 @@ public class Utils {
             }
             float avgM = (float) (numerator / denominator);
 
-            unorderedResult.add((avgN / avgM) * 100);
+            unorderedResult.add((avgN / avgM) * 1);
             listToCut.remove(listToCut.size() - 1);
 
         }

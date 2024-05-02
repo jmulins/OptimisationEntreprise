@@ -41,6 +41,7 @@ public class Main {
         listePlastique.add(5.427f);
         listePlastique.add(5.319f);
         listePlastique.add(5.427f);
+        Utils.donnePoidsEtPrixPourMP(MatieresPremieresEtIntermediaires.PORC, 1000);
 
         momentumList = Utils.calculateMomentum(listePlastique, 1);
         tciList = Utils.calculateTCI(listePlastique, 2, 4);
@@ -54,8 +55,7 @@ public class Main {
         Window window = new Window();
 
 
-
-
+        Utils.calculeChaqueEmployeNeeded(1, 1, 1, 1);
 
 
 

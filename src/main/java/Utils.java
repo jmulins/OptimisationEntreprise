@@ -339,6 +339,18 @@ public class Utils {
 
     public static void machinesPourProduction(){
 
+
+
+
+    }
+
+    public static void simplexPasSimplex(){ //BUT : maximiser le bénéfice
+        //Calculer toutes les  limites des matières premières
+        // pour pouvoir les mettre dans les 5 for
+
+
+
+
     }
 
 

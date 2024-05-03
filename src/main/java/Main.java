@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         CsvFileHelper helper = new CsvFileHelper();
         try {
-            for(String x : helper.readFile(new File("C:\\Users\\gontaluk\\IdeaProjects\\OptimisationEntreprise\\src\\main\\java\\chart.csv"))){
+            for(String x : helper.readFile(new File(System.getProperty("user.dir") + "\\src\\main\\java\\chart.csv"))){
                 System.out.println(x);
             }
         } catch (IOException e) {
@@ -61,7 +61,11 @@ public class Main {
 
         System.out.println(listePlastique);
         System.out.println(momentumList);
-
+        try {
+            Utils.calculePrixpourChaquePF();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 }

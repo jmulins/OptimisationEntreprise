@@ -16,6 +16,7 @@ public class Main {
     public static final int[] MP_COUTS = new int[]{};
     public static final JButton[] MENUS_BUTTONS = new JButton[5];
     public static final String[] MP_LABELS = new String[]{"Cours du porc", "Cours du poulet", "Cours du canard", "Cours du plastique","Cours du fer"};
+    public static final String[] BUTTON_LABELS = new String[]{"Statistiques entreprise", "Ajouter/Supprimer machine"};
 
     // Pour le graphe
     static List<Float> listePlastique = new ArrayList<Float>();
@@ -26,7 +27,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
 
 
 
@@ -203,7 +203,6 @@ public class Main {
 //
 //
         //entreprise = new Entreprise(machines);
-
 
         MonSimplexe.calcule(1,1,1,1,1);
 

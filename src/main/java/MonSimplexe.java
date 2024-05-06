@@ -6,13 +6,15 @@ public class MonSimplexe {
 
     public static void calcule(double x1, double x2, double x3, double x4, double x5){
         double[][] simplexTableau = new double[7][12];
+        Entreprise entreprise = Main.entreprise;
+        double caTerrine = entreprise.terrineVolaille.prixVente - (entreprise.porc.prix * 0.162 + entreprise.poulet.prix * 0.097 + entreprise.canard.prix * 0.037 + entreprise.fer.prix * 0.08);
+        double caPate = entreprise.patePorc.prixVente - (entreprise.porc.prix * 0.094 + entreprise.fer.prix * 0.03);
+        double caMousse = entreprise.mousseCanard.prixVente - (entreprise.porc.prix * 0.129 + entreprise.canard.prix * 0.394 + entreprise.plastique.prix * 0.056);
+        double caJambon = entreprise.jambon.prixVente - (entreprise.porc.prix * 1.2 + entreprise.plastique.prix * 0.073);
+        double caCuisses = entreprise.cuissePoulet.prixVente - (entreprise.cuissePoulet.prixVente * 1.6 + entreprise.plastique.prix * 0.064);
 
-        //AAAAAAAAAAAAAAAAA
-//        prixMp.put("PORC", prixPorc);
-//        prixMp.put("CANARD", prixCanard);
-//        prixMp.put("POULET", prixPoulet);
-//        prixMp.put("PLASTIQUE", prixPlastique);
-//        prixMp.put("FER", prixFer);
+
+
 
 
         for (int i = 0; i < 5;i++){
@@ -38,8 +40,71 @@ public class MonSimplexe {
         simplexTableau[5][3] = 1/donneMaxProductionPF(ProduitsFinis.JAMBON);
         simplexTableau[5][4] = 1/donneMaxProductionPF(ProduitsFinis.CUISSE);
 
+        simplexTableau[6][0] = caTerrine;
+        simplexTableau[6][1] = caPate;
+        simplexTableau[6][2] = caMousse;
+        simplexTableau[6][3] = caJambon;
+        simplexTableau[6][4] = caCuisses;
 
 
+        afficheTableau(simplexTableau);
+
+        while (simplexTableau[6][0] > 0 || simplexTableau[6][1] > 0 || simplexTableau[6][2] > 0 || simplexTableau[6][3] > 0 || simplexTableau[6][4] > 0){
+            double maxCA = 0;
+            int lignePivot = 0;
+            int colonnePivot = 0;
+            double maxCoef = Integer.MAX_VALUE;
+            double nombrePivot;
+
+            for (int i = 0; i <=4; i++){
+
+                if (simplexTableau[6][i] > maxCA){
+                    maxCA = simplexTableau[6][i];
+                    colonnePivot = i;
+                }
+            }
+
+            for (int i = 0; i <=5; i++){
+
+                if (simplexTableau[i][11]/simplexTableau[i][colonnePivot] < maxCoef){
+                    maxCoef = simplexTableau[i][11]/simplexTableau[i][colonnePivot];
+                    lignePivot = i;
+                }
+            }
+
+            nombrePivot = simplexTableau[lignePivot][colonnePivot];
+            double[][] tableauSuivant = Arrays.copyOf(simplexTableau, 7);
+            //afficheTableau(tableauSuivant);
+
+            for (int i = 0; i <=6; i++){
+                if (i != lignePivot){
+                    tableauSuivant[i][colonnePivot] = 0;
+                }
+
+            }
+
+            for (int i = 0; i <=11; i++){
+                tableauSuivant[lignePivot][i] = simplexTableau[lignePivot][i]/nombrePivot;
+            }
+
+
+            for (int i = 0; i<= 6; i++){
+                for (int j = 0; j<= 11; j++){
+
+                    if (i != lignePivot && j != colonnePivot){
+                        tableauSuivant[i][j] = simplexTableau[i][j] - ((simplexTableau[lignePivot][i]*simplexTableau[i][colonnePivot])/nombrePivot);
+                    }
+
+
+                }
+
+            }
+
+
+            simplexTableau = Arrays.copyOf(tableauSuivant, 7);
+
+
+        }
 
 
 
@@ -69,16 +134,7 @@ public class MonSimplexe {
 
 
 
-
-
-
-
-        String arrayString = Arrays.deepToString(simplexTableau);
-        String[] arrayCut = arrayString.split("],");
-
-        for (String  piece :  arrayCut){
-            System.out.println(piece);
-        }
+        afficheTableau(simplexTableau);
 
         donneMaxProductionPF(ProduitsFinis.JAMBON);
 
@@ -139,6 +195,15 @@ public class MonSimplexe {
 
         return 0;
 
+    }
+
+    public static void afficheTableau(double[][] simplexTableau){
+        String arrayString = Arrays.deepToString(simplexTableau);
+        String[] arrayCut = arrayString.split("],");
+
+        for (String  piece :  arrayCut){
+            System.out.println(piece);
+        }
     }
 
 

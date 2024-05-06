@@ -49,7 +49,7 @@ public class MonSimplexe {
 
 
 
-        while (simplexTableau[6][0] > 0 || simplexTableau[6][1] > 0 || simplexTableau[6][2] > 0 || simplexTableau[6][3] > 0 || simplexTableau[6][4] > 0 || simplexTableau[6][5] > 0 || simplexTableau[6][6] > 0 || simplexTableau[6][7] > 0 || simplexTableau[6][8] > 0 || simplexTableau[6][9] > 0 || simplexTableau[6][10] > 0 || simplexTableau[6][11] > 0){
+        while (simplexTableau[6][0] > 0 || simplexTableau[6][1] > 0 || simplexTableau[6][2] > 0 || simplexTableau[6][3] > 0 || simplexTableau[6][4] > 0){
             afficheTableau(simplexTableau);
             System.out.println("----------------------------------------------------------------------");
             double maxCA = 0;
@@ -60,7 +60,7 @@ public class MonSimplexe {
 
 
             //Donne la colonne du pivot
-            for (int i = 0; i <=10; i++){
+            for (int i = 0; i <=4; i++){
 
                 if (simplexTableau[6][i] > maxCA){
                     maxCA = simplexTableau[6][i];
@@ -223,24 +223,18 @@ public class MonSimplexe {
 //        System.out.println(nombreMachineEmballage);
 
 
-        switch (pf){
-            case TERRINE:
-                return Collections.min(Arrays.asList(nombreMachineDecoupe * 194400, nombreMachineBroyage * 487012, nombreMachineCuisson * 292207, nombreMachineEmballage * 259740));
-            case PATE:
-                return Collections.min(Arrays.asList(nombreMachineDecoupe * 395744, nombreMachineBroyage * 797872, nombreMachineCuisson * 574468, nombreMachineEmballage * 425531));
-            case MOUSSE:
-                return Collections.min(Arrays.asList(nombreMachineDecoupe * 116250, nombreMachineBroyage * 454545, nombreMachineCuisson * 606060, nombreMachineEmballage * 242424));
-                case JAMBON:
-                    return Collections.min(Arrays.asList(nombreMachineDecoupe * 50000, nombreMachineCuisson * 181944, nombreMachineEmballage * 218780));
-            case CUISSE:
-                return Collections.min(Arrays.asList(nombreMachineDecoupe * 37500, nombreMachineEmballage * 78125));
+        return switch (pf) {
+            case TERRINE ->
+                    Collections.min(Arrays.asList(nombreMachineDecoupe * 194400, nombreMachineBroyage * 487012, nombreMachineCuisson * 292207, nombreMachineEmballage * 259740));
+            case PATE ->
+                    Collections.min(Arrays.asList(nombreMachineDecoupe * 395744, nombreMachineBroyage * 797872, nombreMachineCuisson * 574468, nombreMachineEmballage * 425531));
+            case MOUSSE ->
+                    Collections.min(Arrays.asList(nombreMachineDecoupe * 116250, nombreMachineBroyage * 454545, nombreMachineCuisson * 606060, nombreMachineEmballage * 242424));
+            case JAMBON ->
+                    Collections.min(Arrays.asList(nombreMachineDecoupe * 50000, nombreMachineCuisson * 181944, nombreMachineEmballage * 218780));
+            case CUISSE -> Collections.min(Arrays.asList(nombreMachineDecoupe * 37500, nombreMachineEmballage * 78125));
+        };
 
-
-        }
-
-
-
-        return 0;
 
     }
 

@@ -1,5 +1,6 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
-
 enum Machines{
     DECOUPE,
     BROYAGE,
@@ -253,8 +254,104 @@ public class Utils {
         System.out.println("il faudra : " + nombreAgentMaitrise + " agent maitrise. ");
         System.out.println("il faudra : " + nombreCadreMoyen + " cadres moyens. ");
         System.out.println("il faudra : " + nombreEmploye + " employés. ");
+        System.out.println("cela coûtera : " + (nombreAgentMaitrise * 2100 + nombreCadreMoyen * 3600 + nombreEmploye * 1800 + nombreOuvriersNecessaires * 1600) + " €");
 
 
+    }
+
+    public static void calculePrixpourChaquePF() throws IOException {
+
+
+        List<String> csvString = CsvFileHelper.readFile(new File(System.getProperty("user.dir") + "\\src\\main\\java\\force_vente.csv"));
+        csvString.remove(0);
+        List<Double> attractionCuisseListe = new ArrayList<Double>();
+        List<Double> attractionTrancheListe = new ArrayList<Double>();
+        List<Double> attractionPateListe = new ArrayList<Double>();
+        List<Double> attractionTerrineListe = new ArrayList<Double>();
+        List<Double> attractionMouseListe = new ArrayList<Double>();
+
+        HashMap<ProduitsFinis, Double> prixPF = new HashMap<>();
+       HashMap<ProduitsFinis, Double> best = new HashMap<>();
+        best.put(ProduitsFinis.CUISSE, 0d);
+        ProduitsFinis currentBestProduct = ProduitsFinis.CUISSE;
+        double bestPrix = 0;
+
+
+
+        for (String str : csvString){
+            String fixedStr = str.replaceAll(",", ".");
+
+            String[] splitString = fixedStr.split(";", -1);
+            List<String> splitStringList = Arrays.asList(splitString);
+
+
+            for (int i = 1; i<=5; i++){
+                if (splitString[i] == ""){
+                    splitString[i] = "0";
+                }
+            }
+
+            attractionCuisseListe.add(Double.parseDouble(splitString[1]));
+            attractionTrancheListe.add(Double.parseDouble(splitString[2]));
+            attractionPateListe.add(Double.parseDouble(splitString[3]));
+            attractionTerrineListe.add(Double.parseDouble(splitString[4]));
+            attractionMouseListe.add(Double.parseDouble(splitString[5]));
+        }
+
+        for (int i = 0; i<csvString.size();i++){
+            boolean enleverValeur = false;
+            //HashMap<ProduitsFinis, Double> best;
+
+            prixPF.clear();
+            prixPF.put(ProduitsFinis.CUISSE, attractionCuisseListe.get(i));
+            prixPF.put(ProduitsFinis.JAMBON, attractionTrancheListe.get(i));
+            prixPF.put(ProduitsFinis.PATE, attractionPateListe.get(i));
+            prixPF.put(ProduitsFinis.TERRINE, attractionTerrineListe.get(i));
+            prixPF.put(ProduitsFinis.MOUSSE, attractionMouseListe.get(i));
+
+            for (Map.Entry<ProduitsFinis, Double> keyValuePair : prixPF.entrySet()){
+//                System.out.println(keyValuePair.getValue() + " * " + (i * 0.1));
+                if (keyValuePair.getValue() * i* 0.1 > best.get(currentBestProduct)){
+//                    System.out.println(best + " pour un prix : " + bestPrix);
+//                    System.out.println("ratio : " + keyValuePair.getValue() * i* 0.1);
+//                    System.out.println("new best : " + keyValuePair.getValue() + " * " + (i * 0.1));
+                    currentBestProduct = keyValuePair.getKey();
+                    best.clear();
+                    best.put(keyValuePair.getKey(), keyValuePair.getValue() * i* 0.1);
+                    bestPrix = i*0.1;
+                }
+
+
+            }
+
+
+        }
+
+        System.out.println(best + " pour un prix de : " + bestPrix);
+
+    }
+
+
+
+
+
+
+    public static void machinesPourProduction(){
+
+
+
+
+    }
+
+    public static void simplexPasSimplex(){ //BUT : maximiser le bénéfice
+        //Calculer toutes les  limites des matières premières
+        // pour pouvoir les mettre dans les 5 for
+
+
+
+
+    }
+    public static void calculerLimiteProduit(){
 
     }
 

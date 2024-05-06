@@ -49,7 +49,7 @@ public class MonSimplexe {
 
 
 
-        while (simplexTableau[6][0] > 0 || simplexTableau[6][1] > 0 || simplexTableau[6][2] > 0 || simplexTableau[6][3] > 0 || simplexTableau[6][4] > 0){
+        while (simplexTableau[6][0] > 0 || simplexTableau[6][1] > 0 || simplexTableau[6][2] > 0 || simplexTableau[6][3] > 0 || simplexTableau[6][4] > 0 || simplexTableau[6][5] > 0 || simplexTableau[6][6] > 0 || simplexTableau[6][7] > 0 || simplexTableau[6][8] > 0 || simplexTableau[6][9] > 0 || simplexTableau[6][10] > 0 || simplexTableau[6][11] > 0){
             afficheTableau(simplexTableau);
             System.out.println("----------------------------------------------------------------------");
             double maxCA = 0;
@@ -60,7 +60,7 @@ public class MonSimplexe {
 
 
             //Donne la colonne du pivot
-            for (int i = 0; i <=4; i++){
+            for (int i = 0; i <=10; i++){
 
                 if (simplexTableau[6][i] > maxCA){
                     maxCA = simplexTableau[6][i];
@@ -84,6 +84,14 @@ public class MonSimplexe {
             //Donne le nombre du pivot
             nombrePivot = simplexTableau[lignePivot][colonnePivot];
 
+            for (int i = 0; i <=11; i++){
+                if (i != colonnePivot) {
+                    simplexTableau[lignePivot][i] = simplexTableau[lignePivot][i] / nombrePivot;
+                }
+            }
+
+
+
             //Clone le tableau
             //double[][] tableauSuivant = Arrays.copyOf(simplexTableau, 7);
             double[][] tableauSuivant = new double[7][12];
@@ -105,7 +113,7 @@ public class MonSimplexe {
             }
 
             for (int i = 0; i <=11; i++){
-                tableauSuivant[lignePivot][i] = simplexTableau[lignePivot][i]/nombrePivot;
+                //tableauSuivant[lignePivot][i] = simplexTableau[lignePivot][i]/nombrePivot;
             }
 
 
@@ -223,7 +231,7 @@ public class MonSimplexe {
             case MOUSSE:
                 return Collections.min(Arrays.asList(nombreMachineDecoupe * 116250, nombreMachineBroyage * 454545, nombreMachineCuisson * 606060, nombreMachineEmballage * 242424));
                 case JAMBON:
-                    Collections.min(Arrays.asList(nombreMachineDecoupe * 50000, nombreMachineCuisson * 181944, nombreMachineEmballage * 218780));
+                    return Collections.min(Arrays.asList(nombreMachineDecoupe * 50000, nombreMachineCuisson * 181944, nombreMachineEmballage * 218780));
             case CUISSE:
                 return Collections.min(Arrays.asList(nombreMachineDecoupe * 37500, nombreMachineEmballage * 78125));
 

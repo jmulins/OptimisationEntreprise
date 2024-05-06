@@ -206,5 +206,9 @@ public class Main {
 
         MonSimplexe.calcule(1,1,1,1,1);
 
+
+
+
+
     }
 }

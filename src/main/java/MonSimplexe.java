@@ -7,7 +7,7 @@ public class MonSimplexe {
     public static void calcule(double x1, double x2, double x3, double x4, double x5){
         double[][] simplexTableau = new double[7][12];
 
-        //AAAAAAAAAAAAAAAA
+        //AAAAAAAAAAAAAAAAA
 //        prixMp.put("PORC", prixPorc);
 //        prixMp.put("CANARD", prixCanard);
 //        prixMp.put("POULET", prixPoulet);

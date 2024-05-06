@@ -132,34 +132,41 @@ public class Main {
         Produit jambon = new Produit("Jambon", 10, jambonFabricationMP, jambonFabrication );
         Produit cuissePoulet = new Produit("Cuisse de poulet", 512, cuissePouletFabricationMP, cuissePouletFabrication );
 
-        // Les machines
-        ArrayList<Machine> machines = new ArrayList<Machine>();
-
         // Ce que produisent les machines
-        HashMap<MatierePremiere, Integer> capaciteDecoupage = new HashMap<MatierePremiere, Integer>();
-        capaciteDecoupage.put(poulet, 45);
-        capaciteDecoupage.put(porc, 60);
-        capaciteDecoupage.put(canard, 45);
+        HashMap<MatierePremiere, Double> capaciteDecoupage = new HashMap<MatierePremiere, Double>();
+        capaciteDecoupage.put(poulet, 45d);
+        capaciteDecoupage.put(porc, 60d);
+        capaciteDecoupage.put(canard, 45d);
 
-        HashMap<Produit, Integer> capaciteBroyage = new HashMap<Produit, Integer>();
-        capaciteBroyage.put(terrineVolaille, 75);
-        capaciteBroyage.put(patePorc, 75);
-        capaciteBroyage.put(mousseCanard, 75);
+        HashMap<Produit, Double> capaciteBroyage = new HashMap<Produit, Double>();
+        capaciteBroyage.put(terrineVolaille, 75d);
+        capaciteBroyage.put(patePorc, 75d);
+        capaciteBroyage.put(mousseCanard, 75d);
 
-        HashMap<Produit, Integer> capaciteCuisson = new HashMap<Produit, Integer>();
+        HashMap<Produit, Double> capaciteCuisson = new HashMap<Produit, Double>();
+        capaciteCuisson.put(terrineVolaille, 45d);
+        capaciteCuisson.put(patePorc, 54d);
+        capaciteCuisson.put(mousseCanard, 75d);
+        capaciteCuisson.put(jambon, 32.75d);
 
-        HashMap<Produit, Integer> capaciteEmballage = new HashMap<Produit, Integer>();
+        HashMap<Produit, Double> capaciteEmballage = new HashMap<Produit, Double>();
+        capaciteEmballage.put(terrineVolaille, 40d);
+        capaciteEmballage.put(patePorc, 40d);
+        capaciteEmballage.put(mousseCanard, 40d);
+        capaciteEmballage.put(jambon, 40d);
+        capaciteEmballage.put(cuissePoulet, 40d);
 
         MachineMatierePremiere machineDecoupage = new MachineMatierePremiere("DECOUPAGE", capaciteDecoupage);
         MachineProduitFini machineBroyage = new MachineProduitFini("BROYAGE", capaciteBroyage);
         MachineProduitFini machineCuisson = new MachineProduitFini("CUISSON", capaciteCuisson);
         MachineProduitFini machineEmballage = new MachineProduitFini("EMBALLAGE", capaciteEmballage);
 
-        machines.add(machineDecoupage);
-        machines.add(machineBroyage);
-        machines.add(machineCuisson);
-        machines.add(machineEmballage);
-
+        // Les machines
+        HashMap<Machine,Integer>  machines = new HashMap<Machine,Integer> ();
+        machines.put(machineDecoupage,7);
+        machines.put(machineBroyage,4);
+        machines.put(machineCuisson,6);
+        machines.put(machineEmballage,7);
         Entreprise entreprise = new Entreprise(machines);
         try {
             Utils.calculePrixpourChaquePF();

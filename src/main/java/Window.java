@@ -4,12 +4,18 @@ import org.knowm.xchart.style.Styler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Window extends JFrame{
     public ArrayList<JLabel> labels = new ArrayList<JLabel>();
     public ArrayList<JTextField> fields = new ArrayList<JTextField>();
     public OHLCChart chart = new OHLCChartBuilder().width(1280).height(720).title("Area Chart").xAxisTitle("X").yAxisTitle("Y").build();
+    public static JPanel menuPanel = new JPanel();
+    public static JPanel statisticsPanel = new JPanel();
+    public static JPanel machineManagerPanel = new JPanel();
 
 
 
@@ -35,7 +41,7 @@ public class Window extends JFrame{
         // panel principal
         this.setLayout(new GridLayout(1,2));
         // panel des options
-        JPanel menuPanel = new JPanel();
+        menuPanel = new JPanel();
         menuPanel.setBackground(new Color(0,0,0));
         menuPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -51,8 +57,6 @@ public class Window extends JFrame{
 
         // titre
         JLabel title = new JLabel("Progiciel de gestion des stocks");
-        title.setBackground(new Color(0,0,0));
-        title.setOpaque(true);
         title.setForeground(new Color(255,255,255));
         title.setFont(new Font("Roboto", Font.BOLD, 30));
         gbc.anchor = GridBagConstraints.CENTER;
@@ -60,9 +64,30 @@ public class Window extends JFrame{
         gbc.insets = new Insets(10,10,0,0);
         JPanel menus = new JPanel();
         menus.setBackground(new Color(0,0,0));
-        menus.setLayout(new GridLayout(Main.MP_LABELS.length+1,1,0,20));
+        menus.setLayout(new GridLayout(Main.BUTTON_LABELS.length+1,1,0,20));
         menus.add(title);
         for(JButton menu : Main.MENUS_BUTTONS){
+            switch (menu.getText()){
+                case "Statistiques entreprise":
+                    menu.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            deleteMenu();
+                            InitStatisticsMenu();
+                        }
+                    });
+                    break;
+                case "Ajouter/Supprimer machine":
+                    menu.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                        }
+                    });
+                    break;
+
+            }
+
             menus.add(menu);
         }
         gbc.anchor = GridBagConstraints.CENTER;
@@ -75,10 +100,38 @@ public class Window extends JFrame{
         chart.addSeries("normal", Utils.generateXForList(Main.listePlastique), Main.listePlastique);
         chart.addSeries("momentum", Utils.generateXForList(Main.momentumList), Main.momentumList);
         chart.addSeries("TCI", Utils.generateXForList(Main.tciList), Main.tciList);
-        JPanel chartPanel = new XChartPanel<OHLCChart>(chart);
+        /*JPanel chartPanel = new XChartPanel<OHLCChart>(chart);
         chartPanel.setBackground(new Color(0,0,0));
-        this.add(menuPanel);
         this.add(chartPanel);
+         */
+
+        // Statistiques de l'entreprise
+        JPanel statistiques = new JPanel();
+        statistiques.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        this.add(menuPanel);
+
+
+    }
+    public void deleteMenu(){
+        for(Component c : menuPanel.getComponents()){
+            if(c instanceof JLabel || c instanceof JPanel){
+                menuPanel.remove(c);
+            }
+        }
+        menuPanel.repaint();
+    }
+    public void InitStatisticsMenu(){
+        statisticsPanel.setBackground(new Color(0,0,0));
+        statisticsPanel.setLayout(new GridBagLayout());
+        JLabel titre = new JLabel("Statistiques");
+        titre.setForeground(new Color(255,255,255));
+        titre.setFont(new Font("Roboto", Font.BOLD, 30));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.CENTER;
+        statisticsPanel.add(titre, gbc);
+        this.menuPanel.add(statisticsPanel);
+        SwingUtilities.updateComponentTreeUI(this);
 
 
     }

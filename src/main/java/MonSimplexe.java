@@ -47,15 +47,19 @@ public class MonSimplexe {
         simplexTableau[6][4] = caCuisses;
 
 
-        afficheTableau(simplexTableau);
+
 
         while (simplexTableau[6][0] > 0 || simplexTableau[6][1] > 0 || simplexTableau[6][2] > 0 || simplexTableau[6][3] > 0 || simplexTableau[6][4] > 0){
+            afficheTableau(simplexTableau);
+            System.out.println("----------------------------------------------------------------------");
             double maxCA = 0;
             int lignePivot = 0;
             int colonnePivot = 0;
             double maxCoef = Integer.MAX_VALUE;
             double nombrePivot;
 
+
+            //Donne la colonne du pivot
             for (int i = 0; i <=4; i++){
 
                 if (simplexTableau[6][i] > maxCA){
@@ -64,18 +68,35 @@ public class MonSimplexe {
                 }
             }
 
+            //Donne la ligne du pivot
             for (int i = 0; i <=5; i++){
 
+                if (simplexTableau[i][colonnePivot] != 0) {
                 if (simplexTableau[i][11]/simplexTableau[i][colonnePivot] < maxCoef){
-                    maxCoef = simplexTableau[i][11]/simplexTableau[i][colonnePivot];
-                    lignePivot = i;
+
+
+                        maxCoef = simplexTableau[i][11] / simplexTableau[i][colonnePivot];
+                        lignePivot = i;
+                    }
                 }
             }
 
+            //Donne le nombre du pivot
             nombrePivot = simplexTableau[lignePivot][colonnePivot];
-            double[][] tableauSuivant = Arrays.copyOf(simplexTableau, 7);
+
+            //Clone le tableau
+            //double[][] tableauSuivant = Arrays.copyOf(simplexTableau, 7);
+            double[][] tableauSuivant = new double[7][12];
+            for (int i = 0; i <= 6; i++){
+                System.arraycopy(simplexTableau[i], 0, tableauSuivant[i], 0, 12);
+
+
+            }
+
             //afficheTableau(tableauSuivant);
 
+
+            //Met des 0 dans la colonne du pivot excepté le nombre du pivot
             for (int i = 0; i <=6; i++){
                 if (i != lignePivot){
                     tableauSuivant[i][colonnePivot] = 0;
@@ -92,7 +113,16 @@ public class MonSimplexe {
                 for (int j = 0; j<= 11; j++){
 
                     if (i != lignePivot && j != colonnePivot){
-                        tableauSuivant[i][j] = simplexTableau[i][j] - ((simplexTableau[lignePivot][i]*simplexTableau[i][colonnePivot])/nombrePivot);
+                        /*
+                        System.out.println(simplexTableau[i][j] - ((simplexTableau[lignePivot][i]*simplexTableau[i][colonnePivot])/nombrePivot));
+                        System.out.println("truc à modifier : " + simplexTableau[i][j]);
+                        System.out.println("pivot du haut : " + simplexTableau[lignePivot][i]);
+                        System.out.println("pivot du côté : " + simplexTableau[i][colonnePivot]);
+
+                         */
+
+
+                        tableauSuivant[i][j] = simplexTableau[i][j] - ((simplexTableau[lignePivot][j]*simplexTableau[i][colonnePivot])/nombrePivot);
                     }
 
 
@@ -101,7 +131,13 @@ public class MonSimplexe {
             }
 
 
-            simplexTableau = Arrays.copyOf(tableauSuivant, 7);
+            //simplexTableau = Arrays.copyOf(tableauSuivant, 7);
+
+            for (int i = 0; i <= 6; i++){
+                System.arraycopy(tableauSuivant[i], 0, simplexTableau[i], 0, 12);
+
+
+            }
 
 
         }
@@ -136,7 +172,10 @@ public class MonSimplexe {
 
         afficheTableau(simplexTableau);
 
-        donneMaxProductionPF(ProduitsFinis.JAMBON);
+
+        //System.out.println(simplexTableau);
+
+        //donneMaxProductionPF(ProduitsFinis.JAMBON);
 
 
 

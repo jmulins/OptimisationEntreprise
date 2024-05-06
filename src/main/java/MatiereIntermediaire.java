@@ -1,9 +1,9 @@
 
 public class MatiereIntermediaire {
     public String nom;
-    public double poids;
-    public MatiereIntermediaire(String nom, double poids){
+    public double ratio;
+    public MatiereIntermediaire(String nom, double ratio){
         this.nom=nom;
-        this.poids=poids;
+        this.ratio=ratio;
     }
 }

@@ -22,6 +22,9 @@ public class Main {
     static List<Float> momentumList;
     static List<Float> tciList;
 
+    static Entreprise entreprise;
+
+
     public static void main(String[] args) {
 /*
         CsvFileHelper helper = new CsvFileHelper();
@@ -167,11 +170,25 @@ public class Main {
         machines.put(machineBroyage,4);
         machines.put(machineCuisson,6);
         machines.put(machineEmballage,7);
-        Entreprise entreprise = new Entreprise(machines);
+        entreprise = new Entreprise(machines);
         try {
             Utils.calculePrixpourChaquePF();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        HashMap<Machines, Integer> machinesHashmap = new HashMap<>();
+
+//        machinesHashmap.put(Machine., 1);
+//        machinesHashmap.put(Machine.BROYAGE, 1);
+//        machinesHashmap.put(Machine.CUISSON, 1);
+//        machinesHashmap.put(Machine.EMBALLAGE, 1);
+//
+//
+//        Entreprise entreprise = new Entreprise(machinesHashmap);
+
+
+        MonSimplexe.calcule(1,1,1,1,1);
+
     }
 }

@@ -23,7 +23,7 @@ public class Main {
     static List<Float> tciList;
 
     public static void main(String[] args) {
-        /*
+/*
         CsvFileHelper helper = new CsvFileHelper();
         try {
             for(String x : helper.readFile(new File(System.getProperty("user.dir") + "\\src\\main\\java\\chart.csv"))){
@@ -72,7 +72,8 @@ public class Main {
         } catch (IOException e){
             e.printStackTrace();
         }
-        */
+*/
+
         // Le cours des matières premières
         Cours cours = new Cours(1.6605,3.537, 4.6035, 5.4405, 2.214);
 
@@ -85,22 +86,51 @@ public class Main {
 
         HashMap<MatierePremiere, Double> poitrailCanardFabrication = new HashMap<MatierePremiere, Double>();
         // Les matieres intermediaires
-        MatiereIntermediaire poitrailCanard = new MatiereIntermediaire("Poitrail de canard");
-        // Ce qui constitue les produits
-        HashMap<MatierePremiere,Integer> terrineVolailleFabrication = new HashMap<MatierePremiere,Integer>();
-        HashMap<MatierePremiere,Integer> mousseCanardFabrication = new HashMap<MatierePremiere,Integer>();
-        HashMap<MatierePremiere,Integer> patePorcFabrication = new HashMap<MatierePremiere,Integer>();
-        HashMap<MatierePremiere,Integer> jambonFabrication = new HashMap<MatierePremiere,Integer>();
-        HashMap<MatierePremiere,Integer> cuissePouletFabrication = new HashMap<MatierePremiere,Integer>();
+        MatiereIntermediaire poitrailCanard = new MatiereIntermediaire("Poitrail de canard", 0.14);
+        MatiereIntermediaire chairCanard = new MatiereIntermediaire("Chair de canard", 0.54);
+        MatiereIntermediaire chairPorc = new MatiereIntermediaire("Chair de porc", 0.62);
+        MatiereIntermediaire musclesPorc = new MatiereIntermediaire("Muscles de porc", 0.15);
+        MatiereIntermediaire chairPoulet = new MatiereIntermediaire("Chair de poulet", 0.31);
+        MatiereIntermediaire cuissePouletMI = new MatiereIntermediaire("Cuisse de poulet", 0.32);
 
-        terrineVolailleFabrication.put();
+        // Ce qui constitue les produits
+        HashMap<MatierePremiere,Integer> terrineVolailleFabricationMP = new HashMap<MatierePremiere,Integer>();
+        terrineVolailleFabricationMP.put(fer, 80);
+        HashMap<MatiereIntermediaire,Integer> terrineVolailleFabrication = new HashMap<MatiereIntermediaire,Integer>();
+        terrineVolailleFabrication.put(chairCanard, 20);
+        terrineVolailleFabrication.put(chairPorc, 101);
+        terrineVolailleFabrication.put(chairPoulet, 30);
+
+        HashMap<MatierePremiere,Integer> mousseCanardFabricationMP = new HashMap<MatierePremiere,Integer>();
+        mousseCanardFabricationMP.put(plastique, 56);
+        HashMap<MatiereIntermediaire,Integer> mousseCanardFabrication = new HashMap<MatiereIntermediaire,Integer>();
+        mousseCanardFabrication.put(chairPorc, 80);
+        mousseCanardFabrication.put(poitrailCanard, 45);
+        mousseCanardFabrication.put(chairCanard, 40);
+
+        HashMap<MatierePremiere,Integer> patePorcFabricationMP = new HashMap<MatierePremiere,Integer>();
+        patePorcFabricationMP.put(fer, 30);
+        HashMap<MatiereIntermediaire,Integer> patePorcFabrication = new HashMap<MatiereIntermediaire,Integer>();
+        patePorcFabrication.put(chairPorc,94);
+
+        HashMap<MatierePremiere,Integer> jambonFabricationMP = new HashMap<MatierePremiere,Integer>();
+        jambonFabricationMP.put(plastique, 73);
+        HashMap<MatiereIntermediaire,Integer> jambonFabrication = new HashMap<MatiereIntermediaire,Integer>();
+        jambonFabrication.put(musclesPorc, 180);
+
+        HashMap<MatierePremiere,Integer> cuissePouletFabricationMP = new HashMap<MatierePremiere,Integer>();
+        cuissePouletFabricationMP.put(plastique,64);
+        HashMap<MatiereIntermediaire,Integer> cuissePouletFabrication = new HashMap<MatiereIntermediaire,Integer>();
+        cuissePouletFabrication.put(cuissePouletMI, 512);
+
+
 
         // Les produits
-        Produit terrineVolaille = new Produit("Terrine de volaille", 10, terrineVolailleFabrication );
-        Produit mousseCanard = new Produit("Mousse de canard", 10, terrineVolailleFabrication );
-        Produit patePorc = new Produit("Pâté de porc", 10, terrineVolailleFabrication );
-        Produit jambon = new Produit("Jambon", 10, terrineVolailleFabrication );
-        Produit cuissePoulet = new Produit("Cuisse de poulet", 10, terrineVolailleFabrication );
+        Produit terrineVolaille = new Produit("Terrine de volaille", 10, terrineVolailleFabricationMP, terrineVolailleFabrication);
+        Produit mousseCanard = new Produit("Mousse de canard", 180, mousseCanardFabricationMP, mousseCanardFabrication );
+        Produit patePorc = new Produit("Pâté de porc", 98, patePorcFabricationMP,patePorcFabrication );
+        Produit jambon = new Produit("Jambon", 10, jambonFabricationMP, jambonFabrication );
+        Produit cuissePoulet = new Produit("Cuisse de poulet", 512, cuissePouletFabricationMP, cuissePouletFabrication );
 
         // Les machines
         ArrayList<Machine> machines = new ArrayList<Machine>();
@@ -110,11 +140,14 @@ public class Main {
         capaciteDecoupage.put(poulet, 45);
         capaciteDecoupage.put(porc, 60);
         capaciteDecoupage.put(canard, 45);
-        capaciteDecoupage.put(canard, 45);
-        capaciteDecoupage.put(canard, 45);
 
         HashMap<Produit, Integer> capaciteBroyage = new HashMap<Produit, Integer>();
+        capaciteBroyage.put(terrineVolaille, 75);
+        capaciteBroyage.put(patePorc, 75);
+        capaciteBroyage.put(mousseCanard, 75);
+
         HashMap<Produit, Integer> capaciteCuisson = new HashMap<Produit, Integer>();
+
         HashMap<Produit, Integer> capaciteEmballage = new HashMap<Produit, Integer>();
 
         MachineMatierePremiere machineDecoupage = new MachineMatierePremiere("DECOUPAGE", capaciteDecoupage);
@@ -123,6 +156,15 @@ public class Main {
         MachineProduitFini machineEmballage = new MachineProduitFini("EMBALLAGE", capaciteEmballage);
 
         machines.add(machineDecoupage);
+        machines.add(machineBroyage);
+        machines.add(machineCuisson);
+        machines.add(machineEmballage);
+
         Entreprise entreprise = new Entreprise(machines);
+        try {
+            Utils.calculePrixpourChaquePF();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

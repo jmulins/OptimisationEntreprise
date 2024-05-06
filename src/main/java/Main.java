@@ -14,9 +14,8 @@ public class Main {
     // Pour la window
     public static final Dimension  FRAME_SIZE = new Dimension(1280,720);
     public static final int[] MP_COUTS = new int[]{};
-    public static final JButton[] MENUS_BUTTONS = new JButton[5];
-    public static final String[] MP_LABELS = new String[]{"Cours du porc", "Cours du poulet", "Cours du canard", "Cours du plastique","Cours du fer"};
-
+    public static final JButton[] MENUS_BUTTONS = new JButton[2];
+    public static final String[] BUTTON_LABELS = new String[]{"Statistiques entreprise", "Ajouter/Supprimer machine"};
     // Pour le graphe
     static List<Float> listePlastique = new ArrayList<Float>();
     static List<Float> momentumList;
@@ -26,7 +25,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-/*
+
         CsvFileHelper helper = new CsvFileHelper();
         try {
             for(String x : helper.readFile(new File(System.getProperty("user.dir") + "\\src\\main\\java\\chart.csv"))){
@@ -54,11 +53,9 @@ public class Main {
 
         momentumList = Utils.calculateMomentum(listePlastique, 1);
         tciList = Utils.calculateTCI(listePlastique, 2, 4);
-        MENUS_BUTTONS[0] = new JButton("Graphe tranches de jambon");
-        MENUS_BUTTONS[1] = new JButton("Graphe pâté porc");
-        MENUS_BUTTONS[2] = new JButton("Graphe mousse canard");
-        MENUS_BUTTONS[3] = new JButton("Graphe terrine de volaille");
-        MENUS_BUTTONS[4] = new JButton("Graphe cuisses de poulet");
+        for(int i=0; i<Main.BUTTON_LABELS.length; i++){
+            MENUS_BUTTONS[i]=new JButton(Main.BUTTON_LABELS[i]);
+        }
 
 
         Window window = new Window();
@@ -75,7 +72,6 @@ public class Main {
         } catch (IOException e){
             e.printStackTrace();
         }
-*/
 
         // Le cours des matières premières
         Cours cours = new Cours(1.6605,3.537, 4.6035, 5.4405, 2.214);

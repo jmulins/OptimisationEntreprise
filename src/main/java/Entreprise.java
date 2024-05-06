@@ -15,6 +15,7 @@ public class Entreprise {
     public MatierePremiere plastique;
     public Cours cours;
     public Entreprise(HashMap<Machine,Integer>  machines){
+        this.machines = machines;
         InitCours();
         InitMP();
         InitProduits();

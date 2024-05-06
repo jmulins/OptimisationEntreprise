@@ -73,7 +73,6 @@ public class MonSimplexe {
 
 
 
-
         String arrayString = Arrays.deepToString(simplexTableau);
         String[] arrayCut = arrayString.split("],");
 

@@ -22,7 +22,13 @@ public class Window extends JFrame{
 
     public Window(){
         chart.getStyler().setDefaultSeriesRenderStyle(OHLCSeries.OHLCSeriesRenderStyle.HiLo);
+        JPanel chartPanel = new XChartPanel<OHLCChart>(chart);
+        chartPanel.setBackground(new Color(0,0,0));
+        chart.addSeries("normal", Utils.generateXForList(Main.listePlastique), Main.listePlastique);
+        chart.addSeries("momentum", Utils.generateXForList(Main.momentumList), Main.momentumList);
+        chart.addSeries("TCI", Utils.generateXForList(Main.tciList), Main.tciList);
 
+        this.add(chartPanel);
         this.InitMenu();
         this.InitFrame();
     }
@@ -97,13 +103,8 @@ public class Window extends JFrame{
         gbc.gridx=0;
         gbc.gridy=0;
         menuPanel.add(menus,gbc);
-        chart.addSeries("normal", Utils.generateXForList(Main.listePlastique), Main.listePlastique);
-        chart.addSeries("momentum", Utils.generateXForList(Main.momentumList), Main.momentumList);
-        chart.addSeries("TCI", Utils.generateXForList(Main.tciList), Main.tciList);
-        /*JPanel chartPanel = new XChartPanel<OHLCChart>(chart);
-        chartPanel.setBackground(new Color(0,0,0));
-        this.add(chartPanel);
-         */
+
+
 
         // Statistiques de l'entreprise
         JPanel statistiques = new JPanel();
@@ -114,12 +115,13 @@ public class Window extends JFrame{
 
     }
     public void deleteMenu(){
-        for(Component c : menuPanel.getComponents()){
-            if(c instanceof JLabel || c instanceof JPanel){
+        for(Component c : menuPanel.getComponents()) {
+            if (c instanceof JLabel || c instanceof JPanel) {
                 menuPanel.remove(c);
             }
         }
         menuPanel.repaint();
+        this.remove(menuPanel);
     }
     public void InitStatisticsMenu(){
         statisticsPanel.setBackground(new Color(0,0,0));
@@ -130,9 +132,30 @@ public class Window extends JFrame{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.CENTER;
         statisticsPanel.add(titre, gbc);
-        this.menuPanel.add(statisticsPanel);
+        JButton button = new JButton("Retour");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteStatisticsMenu();
+                InitMenu();
+            }
+        });
+        statisticsPanel.add(button,gbc);
+        this.add(statisticsPanel);
         SwingUtilities.updateComponentTreeUI(this);
 
+
+    }
+    public void deleteStatisticsMenu(){
+        for(Component c : statisticsPanel.getComponents()){
+            if(c instanceof JLabel || c instanceof JPanel || c instanceof JButton){
+                statisticsPanel.remove(c);
+            }
+        }
+        statisticsPanel.repaint();
+        this.remove(statisticsPanel);
+        menuPanel.remove(statisticsPanel);
+        SwingUtilities.updateComponentTreeUI(this);
 
     }
 }

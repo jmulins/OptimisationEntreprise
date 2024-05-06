@@ -14,10 +14,8 @@ public class Main {
     // Pour la window
     public static final Dimension  FRAME_SIZE = new Dimension(1280,720);
     public static final int[] MP_COUTS = new int[]{};
-    public static final JButton[] MENUS_BUTTONS = new JButton[5];
-    public static final String[] MP_LABELS = new String[]{"Cours du porc", "Cours du poulet", "Cours du canard", "Cours du plastique","Cours du fer"};
+    public static final JButton[] MENUS_BUTTONS = new JButton[2];
     public static final String[] BUTTON_LABELS = new String[]{"Statistiques entreprise", "Ajouter/Supprimer machine"};
-
     // Pour le graphe
     static List<Float> listePlastique = new ArrayList<Float>();
     static List<Float> momentumList;
@@ -28,7 +26,52 @@ public class Main {
 
     public static void main(String[] args) {
 
+        CsvFileHelper helper = new CsvFileHelper();
+        try {
+            for(String x : helper.readFile(new File(System.getProperty("user.dir") + "\\src\\main\\java\\chart.csv"))){
+                System.out.println(x);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        listePlastique.add(4.2f);
+        listePlastique.add(4.11f);
+        listePlastique.add(4f);
+        listePlastique.add(3.9f);
+        listePlastique.add(3.65f);
+        listePlastique.add(3.4f);
+        listePlastique.add(3.7f);
+        listePlastique.add(3.45f);
+        listePlastique.add(3.52f);
+        listePlastique.add(3.69f);
+        listePlastique.add(3.89f);
+        listePlastique.add(3.96f);
+        listePlastique.add(5.427f);
+        listePlastique.add(5.319f);
+        listePlastique.add(5.427f);
+        Utils.donnePoidsEtPrixPourMP(MatieresPremieresEtIntermediaires.PORC, 1000);
 
+        momentumList = Utils.calculateMomentum(listePlastique, 1);
+        tciList = Utils.calculateTCI(listePlastique, 2, 4);
+        for(int i=0; i<Main.BUTTON_LABELS.length; i++){
+            MENUS_BUTTONS[i]=new JButton(Main.BUTTON_LABELS[i]);
+        }
+
+
+        Window window = new Window();
+
+
+        Utils.calculeChaqueEmployeNeeded(1, 1, 1, 1);
+
+
+
+        System.out.println(listePlastique);
+        System.out.println(momentumList);
+        try {
+            Utils.calculePrixpourChaquePF();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
         // Le cours des matières premières
         Cours cours = new Cours(1.6605,3.537, 4.6035, 5.4405, 2.214);
@@ -130,71 +173,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        //HashMap<Machine, Integer> machinesHashmap = new HashMap<>();
-
-
-
-
-
-/*
-        CsvFileHelper helper = new CsvFileHelper();
-        try {
-            for(String x : helper.readFile(new File(System.getProperty("user.dir") + "\\src\\main\\java\\chart.csv"))){
-                System.out.println(x);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        listePlastique.add(4.2f);
-        listePlastique.add(4.11f);
-        listePlastique.add(4f);
-        listePlastique.add(3.9f);
-        listePlastique.add(3.65f);
-        listePlastique.add(3.4f);
-        listePlastique.add(3.7f);
-        listePlastique.add(3.45f);
-        listePlastique.add(3.52f);
-        listePlastique.add(3.69f);
-        listePlastique.add(3.89f);
-        listePlastique.add(3.96f);
-        listePlastique.add(5.427f);
-        listePlastique.add(5.319f);
-        listePlastique.add(5.427f);
-        Utils.donnePoidsEtPrixPourMP(MatieresPremieresEtIntermediaires.PORC, 1000);
-
-        momentumList = Utils.calculateMomentum(listePlastique, 1);
-        tciList = Utils.calculateTCI(listePlastique, 2, 4);
-        MENUS_BUTTONS[0] = new JButton("Graphe tranches de jambon");
-        MENUS_BUTTONS[1] = new JButton("Graphe pâté porc");
-        MENUS_BUTTONS[2] = new JButton("Graphe mousse canard");
-        MENUS_BUTTONS[3] = new JButton("Graphe terrine de volaille");
-        MENUS_BUTTONS[4] = new JButton("Graphe cuisses de poulet");
-
-
-        Window window = new Window();
-
-
-        Utils.calculeChaqueEmployeNeeded(1, 1, 1, 1);
-
-
-
-        System.out.println(listePlastique);
-        System.out.println(momentumList);
-        try {
-            Utils.calculePrixpourChaquePF();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-*/
-
-
-        try {
-            Utils.calculePrixpourChaquePF();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //HashMap<Machines, Integer> machinesHashmap = new HashMap<>();
+        HashMap<Machines, Integer> machinesHashmap = new HashMap<>();
 
 //        machinesHashmap.put(Machine., 1);
 //        machinesHashmap.put(Machine.BROYAGE, 1);
@@ -202,13 +181,10 @@ public class Main {
 //        machinesHashmap.put(Machine.EMBALLAGE, 1);
 //
 //
-        //entreprise = new Entreprise(machines);
+//        Entreprise entreprise = new Entreprise(machinesHashmap);
+
 
         MonSimplexe.calcule(1,1,1,1,1);
-
-
-
-
 
     }
 }
